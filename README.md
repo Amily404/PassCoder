@@ -15,7 +15,9 @@ Ruled password consist of using easily rememberable passwords and make them a li
     ["n","?!"]
 ]
 ```
-```
+```bash
+$ npx passcoder
+
 > jackiechan 
 2D@bck^£echa?!
 ```
