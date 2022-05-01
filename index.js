@@ -1,30 +1,16 @@
 #!/usr/bin/env node
 
-import path from 'path';
 import chalk from "chalk";
 import inquirer from "inquirer";
 import clipboard from 'clipboardy';
 
 import fs from 'fs';
 
-import readline from 'readline';
-
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-var rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-process.stdin.on('keypress', function (ch, key) {
-    if (key && key.name === 'escape') {
-        process.exit();
-    }
-});
 
 let input = "";
 let rules = [];
@@ -168,7 +154,7 @@ async function editRule(rule) {
 async function addRule() {
     const answers = await inquirer.prompt([
         {
-            name: 'rule',
+            name: 'addrule',
             type: 'input',
             message: 'Enter the rule:'
         },
@@ -179,12 +165,12 @@ async function addRule() {
         }
     ]);
 
-    if (exists(answers.rule) === true) {
+    if (exists(answers.addrule) === true) {
         console.log(chalk.red("Rule already existing!"));
         return editRules();
     }
 
-    rules.push([answers.rule, answers.replace]);
+    rules.push([answers.addrule, answers.replace]);
     await saveRules();
     console.log(chalk.green('Rule added!'));
     return editRules();
@@ -222,4 +208,4 @@ async function main() {
     await menu();
 }
 
-main();
+await main();
