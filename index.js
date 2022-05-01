@@ -15,6 +15,11 @@ const __dirname = dirname(__filename);
 let input = "";
 let rules = [];
 
+import yargs from "yargs";
+import { hideBin } from 'yargs/helpers';
+const argv = yargs(hideBin(process.argv)).argv
+
+
 async function askPassword() {
     if (rules.length === 0) {
         console.log(chalk.red("No rules found: please add some!"));
