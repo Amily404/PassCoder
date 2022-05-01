@@ -1,6 +1,16 @@
 # PassCoder
 This is a very simple cli tool that let's you create "ruled" password.
 
+## Installation
+```
+npm i passcoder -g
+```
+## Use:
+
+```
+> passcoder
+```
+
 ## What is a ruled password?
 
 Ruled password consist of using easily rememberable passwords and make them a little more complex with the use of rules.
@@ -9,15 +19,13 @@ Ruled password consist of using easily rememberable passwords and make them a li
 
 ```json
 [
-    ["a","@b"],
-    ["i","^£"],
-    ["j","2D"],
-    ["n","?!"]
+    ["a","@b"], // "a" becomes "@b"
+    ["i","^£"], // "i" becomes "^$"
+    ["j","2D"], // "j" becomes "2D"
+    ["n","?!"]  // "n" becomes "?!"
 ]
 ```
 ```bash
-$ npx passcoder
-
 > jackiechan 
 2D@bck^£echa?!
 ```
