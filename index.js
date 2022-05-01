@@ -56,10 +56,11 @@ async function menu() {
         {
             name: 'menu',
             type: 'list',
-            message: 'What do you want to do?',
+            message: 'PassCoder:',
             choices: [
                 "Create a password",
-                "Edit password rules"
+                "Edit password rules",
+                "Exit"
             ]
         }
     ]);
@@ -68,12 +69,14 @@ async function menu() {
         await askPassword();
         await encodePassword();
         console.log(chalk.green(input));
-        console.log(chalk.gray("Password copied to clipboard!"));
+        console.log(chalk.gray("Password copied to clipboard!" + '\n'));
         clipboard.write(input);
         return menu();
     }
     else if (answers.menu === "Edit password rules") {
         await editRules();
+    } else if (answers.menu === "Exit") {
+        return;
     }
 
 }
@@ -90,8 +93,9 @@ async function editRules() {
         {
             name: 'rules',
             type: 'list',
-            message: 'What do you want to do?',
-            choices: choices
+            message: 'Select a rule to modify or create a new one.',
+            choices: choices,
+            pageSize: 15
         }
     ]);
 
@@ -116,7 +120,8 @@ async function editRule(rule) {
             message: 'Edit or delete?',
             choices: [
                 "Edit",
-                "Delete"
+                "Delete",
+                "Cancel"
             ]
         }
     ]);
@@ -147,6 +152,8 @@ async function editRule(rule) {
         });
         await saveRules();
         return editRules();
+    } else if (answers.rule === "Cancel") {
+        return editRules();
     }
 
 }
@@ -154,9 +161,9 @@ async function editRule(rule) {
 async function addRule() {
     const answers = await inquirer.prompt([
         {
-            name: 'addrule',
+            name: 'addRule',
             type: 'input',
-            message: 'Enter the rule:'
+            message: 'Enter the original value:'
         },
         {
             name: 'replace',
@@ -165,12 +172,12 @@ async function addRule() {
         }
     ]);
 
-    if (exists(answers.addrule) === true) {
+    if (exists(answers.addRule) === true) {
         console.log(chalk.red("Rule already existing!"));
         return editRules();
     }
 
-    rules.push([answers.addrule, answers.replace]);
+    rules.push([answers.addRule, answers.replace]);
     await saveRules();
     console.log(chalk.green('Rule added!'));
     return editRules();
