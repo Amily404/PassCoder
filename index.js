@@ -14,10 +14,12 @@ const __dirname = dirname(__filename);
 
 let input = "";
 let rules = [];
+let pack = JSON.parse(fs.readFileSync(__dirname + '/package.json'));
 
 import yargs from "yargs";
 import { hideBin } from 'yargs/helpers';
-const argv = yargs(hideBin(process.argv)).argv
+yargs(hideBin(process.argv))
+    .version(`v${pack.version}`).argv;
 
 
 async function askPassword() {
