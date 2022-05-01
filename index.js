@@ -30,6 +30,11 @@ let input = "";
 let rules = [];
 
 async function askPassword() {
+    if (rules.length === 0) {
+        console.log(chalk.red("No rules found: please add some!"));
+        return menu();
+    }
+
     const answers = await inquirer.prompt([
         {
             name: "password",
