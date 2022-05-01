@@ -42,8 +42,21 @@ async function askPassword() {
 }
 
 async function encodePassword() {
-    rules.forEach(rule => {
-        input = input.replace(rule[0], rule[1]);
+    //create regex from rules
+    let regex = "";
+    rules.forEach((a) => {
+        regex += a[0] + "|";
+    });
+    regex = regex.substring(0, regex.length - 1);
+    regex = new RegExp(regex, "g");
+
+    //encode password
+    input = input.replace(regex, (a) => {
+        for (let i = 0; i < rules.length; i++) {
+            if (rules[i][0] === a) {
+                return rules[i][1];
+            }
+        }
     });
 }
 
