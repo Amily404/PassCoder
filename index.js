@@ -117,8 +117,13 @@ async function editRules() {
     }
 }
 
+/**
+ * 
+ * @param {string} rule 
+ * @returns 
+ */
 async function editRule(rule) {
-    rule.split(" - ");
+    rule = rule.split(" - ");
 
     const answers = await inquirer.prompt([
         {
@@ -157,7 +162,9 @@ async function editRule(rule) {
                 rules.splice(i, 1);
             }
         });
+
         await saveRules();
+        console.log(chalk.green('Rule deleted!'));
         return editRules();
     } else if (answers.rule === "Cancel") {
         return editRules();
